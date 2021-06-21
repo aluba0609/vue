@@ -7,6 +7,7 @@ const compileUtil={
     text(node,expr,vm){
         let value;
         if(expr.indexOf("{{")!==-1){
+            // console.log(key.replace(/\{\{.+?\}\}/g))//vue.js:10 undefined--undefined
             value=expr.replace(/\{\{(.+?)\}\}/g,(...args)=>{//["{{person.name}}", "person.name", 0, "{{person.name}}--{{person.age}}"]
                 return this.getVal(args[1],vm)
             })
