@@ -4,6 +4,11 @@ const compileUtil={
             return data[currentVal]
         },vm.$data)
     },
+    setVal(expr,vm,inputVal){
+        expr.split('.').reduce((data,currentVal)=>{
+            return data[currentVal]=inputVal
+        },vm.$data)
+    },
     getContentVal(expr,vm){
         return value=expr.replace(/\{\{(.+?)\}\}/g,(...args)=>{
             return this.getVal(args[1],vm)
@@ -14,6 +19,7 @@ const compileUtil={
         if(expr.indexOf("{{")!==-1){
             // console.log(key.replace(/\{\{.+?\}\}/g))//vue.js:10 undefined--undefined
             value=expr.replace(/\{\{(.+?)\}\}/g,(...args)=>{//["{{person.name}}", "person.name", 0, "{{person.name}}--{{person.age}}"]
+                //绑定观察者，将来数据变化  触发这里的回调
                 new Watch(vm,args[1],(newVal)=>{
                     this.updater.textUpdater(node,newVal)
                     // this.updater.textUpdater(node,this.getContentVal(expr,vm))
@@ -34,9 +40,14 @@ const compileUtil={
     },
     model(node,expr,vm){
         const value=this.getVal(expr,vm);
+        //绑定更新函数 数据=>视图
         new Watch(vm,expr,(newVal)=>{
             this.updater.htmlUpdater(node,newVal)
         });
+        node.addEventListener("input",(e)=>{
+            const val=e.target.value;
+            this.setVal(expr,vm,val)
+        },false)
         this.updater.modelUpdater(node,value)
 
     },
