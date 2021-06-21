@@ -4,11 +4,20 @@ const compileUtil={
             return data[currentVal]
         },vm.$data)
     },
+    getContentVal(expr,vm){
+        return value=expr.replace(/\{\{(.+?)\}\}/g,(...args)=>{
+            return this.getVal(args[1],vm)
+        })
+    },
     text(node,expr,vm){
         let value;
         if(expr.indexOf("{{")!==-1){
             // console.log(key.replace(/\{\{.+?\}\}/g))//vue.js:10 undefined--undefined
             value=expr.replace(/\{\{(.+?)\}\}/g,(...args)=>{//["{{person.name}}", "person.name", 0, "{{person.name}}--{{person.age}}"]
+                new Watch(vm,args[1],(newVal)=>{
+                    this.updater.textUpdater(node,newVal)
+                    // this.updater.textUpdater(node,this.getContentVal(expr,vm))
+                });
                 return this.getVal(args[1],vm)
             })
         }else{
@@ -18,10 +27,16 @@ const compileUtil={
     },
     html(node,expr,vm){
         const value=this.getVal(expr,vm);
+        new Watch(vm,expr,(newVal)=>{
+            this.updater.htmlUpdater(node,newVal)
+        });
         this.updater.htmlUpdater(node,value)
     },
     model(node,expr,vm){
         const value=this.getVal(expr,vm);
+        new Watch(vm,expr,(newVal)=>{
+            this.updater.htmlUpdater(node,newVal)
+        });
         this.updater.modelUpdater(node,value)
 
     },

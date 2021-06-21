@@ -42,6 +42,7 @@
             methods:{
                 change(){
                     console.log(this)
+                    this.$data.person.fav='dsad'//这里会触发后面的{{person.age}}消失 为此要做getContentVal处理
                 }
             }
         })
