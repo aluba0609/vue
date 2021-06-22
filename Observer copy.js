@@ -89,7 +89,6 @@ class Dep {
 class Observer {
     constructor(data) {
         this.observer(data)
-        this.dep = new Dep()
     }
     observer(data) {
         if (data && typeof data === 'object') {

@@ -31,7 +31,6 @@ class Dep{
 }
 class Observer {
     constructor(data) {
-        this.data = data;
         this.observer(data)
         // this.dep=new Dep();//不能在此处new 会把所有的观察者集合到同一个dep.subs 一但数据更新  所有的subs全部会被触发
     }
@@ -50,6 +49,7 @@ class Observer {
             configurable: true,
             get: () => {
                 Dep.target&&dep.addSubs(Dep.target)
+                dep.subs.length&&console.log('我是',key+'的：',dep.subs)
                 return value
             },
             set: (newVal) => {

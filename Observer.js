@@ -52,6 +52,7 @@ class Observer {
             get() {
                 //订阅数据变化时，往Dep中添加观察者
                 Dep.target && dep.addSub(Dep.target)
+                dep.subs.length&&console.log('我是',key+'的：',dep.subs)
                 return value;
             },
             set: (newval) => {

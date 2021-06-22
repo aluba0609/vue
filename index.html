@@ -27,7 +27,7 @@
         <input type="text" v-model="msg" />
         <button v-on:click="change">{{btn}}</button>
         <button @click="change">{{btn}}2</button> 
-
+        <input type="text" v-model="data" />
     </div>
     <script src="./Observer.js"></script>
     <script src="./vue.js"></script>
@@ -35,6 +35,7 @@
         let vm=new Vue({
             el:"#app",
             data:{
+                data:"1",
                 person:{
                     name:"小马哥",
                     age:18,
