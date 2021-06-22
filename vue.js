@@ -27,6 +27,9 @@ const compileUtil={
                 return this.getVal(args[1],vm)
             })
         }else{
+            new Watch(vm,expr,(newVal)=>{
+                this.updater.textUpdater(node,newVal)
+            });
             value=this.getVal(expr,vm);
         }
         this.updater.textUpdater(node,value)
@@ -42,7 +45,7 @@ const compileUtil={
         const value=this.getVal(expr,vm);
         //绑定更新函数 数据=>视图
         new Watch(vm,expr,(newVal)=>{
-            this.updater.htmlUpdater(node,newVal)
+            this.updater.modelUpdater(node,newVal)
         });
         node.addEventListener("input",(e)=>{
             const val=e.target.value;
