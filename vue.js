@@ -150,6 +150,21 @@ class Vue {
             new Observer(this.$data)
             //实现一个指令解析器
             new Compile(this.$el,this)
+            this.proxyData(this.$data)
+            this.proxyData(this.$options.methods)
+
+        }
+    }
+    proxyData(data){
+        for (const key in data) {
+            Object.defineProperty(this,key,{//此处的this指向
+                get(){
+                    return data[key];
+                },
+                set(newVal){
+                    data[key]=newVal;
+                }
+            })
         }
     }
 }
