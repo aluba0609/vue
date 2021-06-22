@@ -5,25 +5,6 @@ class Observer {
     }
     observer(obj) {
         if (obj && typeof obj === 'object') {
-            // Object.keys(obj).reduce((data,currentKey)=>{
-            //     if(data[currentKey]!=='object'){
-            //         console.log(data)
-            //         Object.defineProperty(data,currentKey,{
-            //             enumerable:true,
-            //             configurable:true,
-            //             get:()=>{
-            //                 return data[currentKey]
-            //             },
-            //             set:(newVal)=>{
-            //                 if(newVal!==data[currentKey]){
-            //                     data[currentKey]=newVal
-            //                 }
-            //             }
-            //         })
-            //     }else{
-            //         this.observer(data[currentKey])
-            //     }
-            // },obj)
             Object.keys(obj).forEach(key => {
                 this.defineReactive(obj, key, obj[key])
             })
