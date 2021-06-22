@@ -12,11 +12,6 @@
         <h3>{{person.fav}}</h3>
         <ul>
             <li>{{arr}}</li>
-            <li>{{arr}}</li>
-            <li>{{arr}}</li>
-            <li>{{arr}}</li>
-            <li>{{arr}}</li>
-            <li>{{arr}}</li>
         </ul>
         <h3>{{msg}}</h3>
         <div v-text="msg"></div>
@@ -24,8 +19,8 @@
         <div v-html="person.htmlStr"></div>
         <input type="text" v-model="msg" />
         <button v-on:click="change">{{btn}}</button>
-        <button @click="change">{{btn}}2</button>
-
+        <button @click="change">{{btn}}2</button> 
+        <input type="text" v-model="data" />
     </div>
     <script src="./Observer.js"></script>
     <script src="./vue.js"></script>
@@ -33,6 +28,7 @@
         let vm=new Vue({
             el:"#app",
             data:{
+                data:"1",
                 person:{
                     name:"小马哥",
                     age:18,
