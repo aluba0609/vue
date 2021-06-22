@@ -38,10 +38,18 @@ const compileUtil={
         const fn=vm.$options.methods[key].bind(vm);
         node.addEventListener(eventName,fn,false)
     },
+    setVal(vm,key,newval){
+        key.split(".").reduce((data,currentData)=>{
+            return data[currentData]=newval
+        },vm.$data)
+    },
     model(node,vm,key){
         const value=this.getVal(vm,key);
         new Watcher(vm,key,(newval)=>{
             this.updater.modelUpdater(node,newval)
+        })
+        node.addEventListener("input",(e)=>{
+            this.setVal(vm,key,e.target.value)
         })
         this.updater.modelUpdater(node,value)
     },
