@@ -21,27 +21,27 @@ const def = function (obj, key, value, enumerable) {
 methodsNeedChange.forEach(methodName => {
     const original = arrayPrototype[methodName];
 
-    def(arrayMethods, methodName, function() {//别用箭头函数
-        const args=[...arguments]
+    def(arrayMethods, methodName, function () {//别用箭头函数
+        const args = [...arguments]
         //恢复原来的功能
-        const result=original.apply(this,args)
+        const result = original.apply(this, args)
 
         //可能存在数组中又有数组
-        const ob=this.__ob__;
-        let inserted=[];
-        switch(methodName){
+        const ob = this.__ob__;
+        let inserted = [];
+        switch (methodName) {
             case 'push':
-                inserted=args
+                inserted = args
                 break;
             case 'unshift':
-                inserted=args
+                inserted = args
                 break;
             case 'splice':
-                inserted=args.slice(2)
+                inserted = args.slice(2)
                 break
         }
         //判断有没有插入的项
-        if(inserted){
+        if (inserted) {
             ob.observerArray(inserted)
         }
         ob.dep.notify()
@@ -93,7 +93,7 @@ class Observer {
     observer(data) {
         if (data && typeof data === 'object') {
             if (Array.isArray(data)) {
-                def(data,'__ob__',this,false) 
+                def(data, '__ob__', this, false)
                 //如果是数组
                 Object.setPrototypeOf(data, arrayMethods)
                 this.observerArray(data)
@@ -111,6 +111,7 @@ class Observer {
             enumerable: true,
             configurable: true,
             get() {
+                console.log("更改数组")
                 //订阅数据变化时，往Dep中添加观察者
                 Dep.target && dep.addSub(Dep.target)
                 return value;
@@ -126,8 +127,8 @@ class Observer {
             }
         })
     }
-    observerArray(arr){
-        for (let i = 0,l=arr.length; i <l; i++) {//处理 unshift push splice
+    observerArray(arr) {
+        for (let i = 0, l = arr.length; i < l; i++) {//处理 unshift push splice
             this.observer(arr[i])
         }
     }

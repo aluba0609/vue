@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div id="app">
         <h2>{{person.name}}--{{person.age}}</h2>
@@ -19,35 +21,36 @@
         <div v-html="person.htmlStr"></div>
         <input type="text" v-model="msg2" />
         <button v-on:click="change">{{btn}}</button>
-        <button @click="change">{{btn2}}</button> 
+        <button @click="change">{{btn2}}</button>
         <input type="text" v-model="data" />
     </div>
-    <script src="./Observer.js"></script>
+    <script src="./ObserverCopy.js"></script>
     <script src="./vue.js"></script>
     <script>
-        let vm=new Vue({
-            el:"#app",
-            data:{
-                data:"1",
-                person:{
-                    name:"小马哥",
-                    age:18,
-                    fav:"姑娘",
-                    htmlStr:"<h3>大家好，你们学习的如何</h3>"
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                data: "1",
+                person: {
+                    name: "小马哥",
+                    age: 18,
+                    fav: "姑娘",
+                    htmlStr: "<h3>大家好，你们学习的如何</h3>"
                 },
-                msg:"学习MVVM实现原理",
-                msg1:"学习MVVM实现原理1",
-                msg2:"学习MVVM实现原理2",
-                btn:"按钮",
-                btn2:"次奥",
-                arr:[1,2,3,4,5]
+                msg: "学习MVVM实现原理",
+                msg1: "学习MVVM实现原理1",
+                msg2: "学习MVVM实现原理2",
+                btn: "按钮",
+                btn2: "次奥",
+                arr: [1, 2, 3, 4, 5]
             },
-            methods:{
-                change(){
+            methods: {
+                change() {
                     console.log(this)
                 }
             }
         })
     </script>
 </body>
+
 </html>
