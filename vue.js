@@ -21,8 +21,8 @@ const compileUtil={
             value=expr.replace(/\{\{(.+?)\}\}/g,(...args)=>{//["{{person.name}}", "person.name", 0, "{{person.name}}--{{person.age}}"]
                 //绑定观察者，将来数据变化  触发这里的回调
                 new Watch(vm,args[1],(newVal)=>{
-                    this.updater.textUpdater(node,newVal)
-                    // this.updater.textUpdater(node,this.getContentVal(expr,vm))
+                    // this.updater.textUpdater(node,newVal)
+                    this.updater.textUpdater(node,this.getContentVal(expr,vm))
                 });
                 return this.getVal(args[1],vm)
             })

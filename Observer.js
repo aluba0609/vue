@@ -58,7 +58,6 @@ class Observer {
                 this.observer(newval)//防止对整个对象更改  导致新的属性没有被监听
                 if (newval !== value) {
                     value = newval
-                    console.log(value)
                 }
                 //告诉Dep通知变化
                 dep.notify()

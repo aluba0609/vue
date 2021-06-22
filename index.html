@@ -22,9 +22,11 @@
         <div v-text="msg"></div>
         <div v-text="person.fav"></div>
         <div v-html="person.htmlStr"></div>
+        <div v-html="person.htmlStr"></div> 
+        <div v-html="person.htmlStr"></div>
         <input type="text" v-model="msg" />
         <button v-on:click="change">{{btn}}</button>
-        <button @click="change">{{btn}}2</button>
+        <button @click="change">{{btn}}2</button> 
 
     </div>
     <script src="./Observer.js"></script>
@@ -41,22 +43,12 @@
                 },
                 msg:"学习MVVM实现原理",
                 btn:"按钮",
-                //改写 push pop  unshift shift splice sort reverse 
                 arr:[1,2,3,4,5]
             },
             methods:{
                 change(){
-                    // this.arr[0]=99
-                    // this.arr.shift()
-                    // this.arr.unshift(0)
-                    // this.arr=[1111111111111111]
-                    this.arr.splice(2,1,6,7,8,9)
-                    // console.log(this.arr)
-                    // this.$data.person.fav='dsad'//这里会触发后面的{{person.age}}消失 为此要做getContentVal处理
-                },
-                // a(){
-                //     console.log("s")
-                // }
+                    console.log(this)
+                }
             }
         })
     </script>

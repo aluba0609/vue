@@ -4,10 +4,21 @@ const compileUtil={
             return data[currentData]
         },vm.$data)
     },
+    getContentVal(key,vm){
+        return value=key.replace(/\{\{(.+?)\}\}/g,(...args)=>{
+            return this.getVal(vm,args[1])
+        })
+    },
     text(node,vm,key){
         let value;
         if(key.indexOf("{{")!==-1){
-            value=key.replace(/\{\{(.+?)\}\}/g,(...args)=>{
+            // console.log(key.replace(/\{\{.+?\}\}/g))//vue.js:10 undefined--undefined
+            value=key.replace(/\{\{(.+?)\}\}/g,(...args)=>{//["{{person.name}}", "person.name", 0, "{{person.name}}--{{person.age}}"]
+                //绑定观察者，将来数据变化  触发这里的回调
+                new Watcher(vm,args[1],(newVal)=>{
+                    // this.updater.textUpdater(node,newVal)
+                    this.updater.textUpdater(node,this.getContentVal(key,vm))//重新取属性  防止把{{person.age}}干没了
+                });
                 return this.getVal(vm,args[1])
             })
         }else{
@@ -17,6 +28,10 @@ const compileUtil={
     },
     html(node,vm,key){
         const value=this.getVal(vm,key);
+        
+        new Watcher(vm,key,(newval)=>{
+            this.updater.htmlUpdater(node,newval)
+        })
         this.updater.htmlUpdater(node,value)
     },
     on(node,vm,key,eventName){
@@ -25,6 +40,9 @@ const compileUtil={
     },
     model(node,vm,key){
         const value=this.getVal(vm,key);
+        new Watcher(vm,key,(newval)=>{
+            this.updater.modelUpdater(node,newval)
+        })
         this.updater.modelUpdater(node,value)
     },
     updater:{
