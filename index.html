@@ -24,9 +24,10 @@
         <button @click="change">{{btn2}}</button>
         <input type="text" v-model="data" />
     </div>
-    <script src="./ObserverCopy.js"></script>
+    <script src="./Observer.js"></script>
     <script src="./vue.js"></script>
     <script>
+        //Observer 三次 dep有17次
         let vm = new Vue({
             el: "#app",
             data: {

@@ -45,7 +45,6 @@ methodsNeedChange.forEach(methodName => {
             ob.observerArray(inserted)
         }
         ob.dep.notify()
-        // console.log("进来改造",args)
         return result//pop splice会有返回值
     }, false)
 })
@@ -73,7 +72,8 @@ class Watch {
     }
 }
 class Dep {
-    constructor() {
+    constructor(name) {
+        this.name=name
         this.subs = []
     }
     //收集观察者
@@ -82,7 +82,6 @@ class Dep {
     }
     //通知观察者去更新
     notify() {
-        console.log("通知观察")
         this.subs.forEach(w => w.update())
     }
 }
@@ -93,11 +92,11 @@ class Observer {
     observer(data) {
         if (data && typeof data === 'object') {
             if (Array.isArray(data)) {
-                def(data, '__ob__', this, false)
+                def(data, '__ob__',this, false)
                 //如果是数组
                 Object.setPrototypeOf(data, arrayMethods)
                 this.observerArray(data)
-            } else {
+            }else {
                 Object.keys(data).forEach(key => {
                     this.defineReactive(data, key, data[key])
                 })
@@ -111,17 +110,14 @@ class Observer {
             enumerable: true,
             configurable: true,
             get() {
-                console.log("更改数组")
                 //订阅数据变化时，往Dep中添加观察者
                 Dep.target && dep.addSub(Dep.target)
                 return value;
             },
             set: (newval) => {
+                if (newval === value) {return} 
                 this.observer(newval)//防止对整个对象更改  导致新的属性没有被监听
-                if (newval !== value) {
-                    value = newval
-                    console.log(value)
-                }
+                value = newval
                 //告诉Dep通知变化
                 dep.notify()
             }
