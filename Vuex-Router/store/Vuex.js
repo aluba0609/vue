@@ -3,11 +3,13 @@ let Vue;
 
 class Vuex {
     constructor(options) {
-        this._vm = new Vue({//响应式处理 Vue.util.defineReactive只能处理一个属性
-            data: {
-                $$state: options.state
-            }
-        })
+        // this._vm = new Vue({//响应式处理 Vue.util.defineReactive只能处理一个属性
+        //     data: {
+        //         $$state: options.state
+        //     }
+        // })
+
+        this._vm=Vue.observable({$$state: options.state})
         this._mutations = options.mutations;
         this._actions = options.actions;
         this.getters = {};
@@ -23,7 +25,8 @@ class Vuex {
         })
     }
     get state() {
-        return this._vm._data.$$state;
+        // return this._vm._data.$$state;
+        return this._vm.$$state;
     }
     set state(v) {
         console.error("不允许修改")

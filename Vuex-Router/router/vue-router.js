@@ -32,13 +32,13 @@ class VueRouter {
             },
             render(h) {
                 return h(
-                    "a",
+                    "a",//标签元素
                     {
                         attrs: {
-                            href: `#${this.to}`
+                            href: `#${this.to}`//标签上的属性
                         }
                     },
-                    this.$slots.default
+                    this.$slots.default//标签中的内容
                 )
             }
         })
