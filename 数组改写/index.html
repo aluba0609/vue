@@ -8,17 +8,19 @@
 </head>
 <body>
     <div id="app">
+        <input type="text" v-model="data" />
+        <div>{{data}}</div>
         <ul>
             <li>{{arr}}</li>
         </ul>
     </div>
-    <!-- <script src="./ObserverCopy.js"></script> -->
-    <script src="./vuecopy.js"></script>
+    <script src="./Observer.js"></script>
+    <script src="./vue.js"></script>
     <script>
         let vm=new Vue({
             el:"#app",
             data:{
-                // data:"1",
+                data:"1",
                 // person:{
                 //     name:"小马哥",
                 //     age:18,
