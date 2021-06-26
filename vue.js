@@ -65,7 +65,7 @@ const compileUtil = {
         modelUpdater(node, value) {
             node.value = value;
         },
-        textUpdater(node, value) {
+        textUpdater(node, value) {console.log('进来了')
             node.textContent = value;
         },
         htmlUpdater(node, value) {

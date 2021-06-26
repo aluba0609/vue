@@ -87,7 +87,7 @@ class Observer {
 
     }
     defineReactive(data, key, value) {
-        const dep = new Dep()
+        const dep=this.dep||new Dep()
         if(Array.isArray( value)){
             Object.setPrototypeOf(value,arrayMethods)
             this.dep=dep;
