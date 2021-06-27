@@ -64,14 +64,13 @@ class Watch {
 }
 class Dep {
     constructor() {
-        console.log("调用次数")
         this.subs = [];
     }
     addSubs(watcher) {
         this.subs.push(watcher)
     }
     notify() {
-        this.subs.forEach(w => { w.updater() })
+        this.subs.forEach(w => { console.log("调用次数");w.updater() })
     }
 }
 class Observer {

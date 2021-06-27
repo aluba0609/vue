@@ -8,11 +8,19 @@
 </head>
 <body>
     <div id="app">
-        <input type="text" v-model="data" />
-        <div>{{data}}</div>
+        <h2>{{person.name}}--{{person.age}}</h2>
+        <h3>{{person.fav}}</h3>
         <ul>
             <li>{{arr}}</li>
         </ul>
+        <h3>{{msg}}</h3>
+        <div v-text="msg1"></div>
+        <div v-text="person.fav"></div>
+        <div v-html="person.htmlStr"></div>
+        <input type="text" v-model="msg2" />
+        <button v-on:click="change">{{btn}}</button>
+        <button @click="change">{{btn2}}</button>
+        <input type="text" v-model="data" />
     </div>
     <script src="./Observer.js"></script>
     <script src="./vue.js"></script>
@@ -21,17 +29,17 @@
             el:"#app",
             data:{
                 data:"1",
-                // person:{
-                //     name:"小马哥",
-                //     age:18,
-                //     fav:"姑娘",
-                //     htmlStr:"<h3>大家好，你们学习的如何</h3>"
-                // },
-                // msg:"学习MVVM实现原理",
-                // msg1:"学习MVVM实现原理1",
-                // msg2:"学习MVVM实现原理2",
-                // btn:"按钮",
-                // btn2:"次奥",
+                person:{
+                    name:"小马哥",
+                    age:18,
+                    fav:"姑娘",
+                    htmlStr:"<h3>大家好，你们学习的如何</h3>"
+                },
+                msg:"学习MVVM实现原理",
+                msg1:"学习MVVM实现原理1",
+                msg2:"学习MVVM实现原理2",
+                btn:"按钮",
+                btn2:"次奥",
                 arr:[1,2,3,4,5]
             },
             methods:{
